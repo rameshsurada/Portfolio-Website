@@ -1,0 +1,83 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Award, ExternalLink } from "lucide-react";
+import SectionWrapper from "@/components/common/SectionWrapper";
+import { Button } from "@/components/ui/button";
+import { certifications } from "@/data/certifications";
+
+export default function Certifications() {
+    return (
+        <SectionWrapper id="certifications" className="py-32 border-t border-border bg-card">
+            <div className="max-w-5xl mx-auto px-6">
+                <motion.div
+                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                >
+                    <span className="text-[10px] font-mono text-amber-500 font-bold uppercase tracking-widest bg-amber-500/5 px-2.5 py-1 border border-amber-500/20 rounded">
+                        Technical Validation
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4 tracking-tighter">
+                        Verified <span className="text-gradient">Credentials</span>
+                    </h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
+                        Professional validations, platform accreditations, and specialized technical certifications.
+                    </p>
+                </motion.div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {certifications.map((cert, i) => (
+                        <motion.div
+                            key={cert.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="p-6 rounded-xl border border-border bg-background hover:border-amber-500/30 transition-all duration-300 flex flex-col justify-between group"
+                        >
+                            <div>
+                                <div className="flex items-start justify-between mb-6">
+                                    <div className="w-9 h-9 rounded bg-amber-500/5 flex items-center justify-center border border-amber-500/20 text-amber-500 group-hover:bg-amber-500/10 transition-colors">
+                                        <Award className="w-4.5 h-4.5" />
+                                    </div>
+                                    <span className="px-2.5 py-0.5 rounded border border-border bg-card font-mono text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
+                                        {cert.year}
+                                    </span>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <h3 className="text-lg font-bold text-foreground group-hover:text-amber-500 transition-colors tracking-tight">
+                                        {cert.title}
+                                    </h3>
+                                    <p className="text-xs text-muted-foreground font-mono">
+                                        {cert.issuer}
+                                    </p>
+                                </div>
+
+                                <p className="text-xs text-muted-foreground leading-relaxed my-6">
+                                    {cert.relevance}
+                                </p>
+                            </div>
+
+                            {cert.credentialUrl && (
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="w-full rounded border border-border bg-card hover:bg-secondary hover:border-amber-500/30 hover:text-amber-500 text-foreground font-mono h-10 text-xs mt-2 group"
+                                    asChild
+                                >
+                                    <a href={cert.credentialUrl} target="_blank">
+                                        View Certificate
+                                        <ExternalLink className="w-3.5 h-3.5 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                    </a>
+                                </Button>
+                            )}
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </SectionWrapper>
+    );
+}
